@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Simple Blog App</string>
+    <string name="title_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry</string>
+    <string name="author_name">Jhon Doe</string>
+    <string name="category">Business, Lifestyle</string>
+
+
 </resources>
