@@ -7,11 +7,15 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.moshiur.simpleblogapp.models.Author;
 import com.moshiur.simpleblogapp.models.Blog;
 
 @Database(entities = {Blog.class}, version = 1)
+@TypeConverters(DataConverter.class)
 public abstract class BlogDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "BlogDatabase";
