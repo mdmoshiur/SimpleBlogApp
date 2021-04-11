@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 
 
 public interface ApiInterface {
-    @GET("/sohel-cse/simple-blog-api/db")
+    @GET("/sohel-cse/simple-blog-api/db/")
     Call<ServerResponse> getBlogs();
 
 }
