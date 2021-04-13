@@ -26,11 +26,20 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+
+        dataBinding = true
+
+        // for view binding:
+        // viewBinding = true
+    }
 }
 
 dependencies {
     def room_version = "2.2.6"
     def retrofit_version = "2.9.0"
+    def dagger_version = "2.34"
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
@@ -55,4 +64,8 @@ dependencies {
 
     //for glide image
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+
+    // dagger dependencies
+    implementation "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 }
