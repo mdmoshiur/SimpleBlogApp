@@ -1,4 +1,4 @@
-package com.moshiur.simpleblogapp.retrofit;
+package com.moshiur.simpleblogapp.di.retrofit.retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,7 +24,7 @@ public class RetrofitApiClient {
 
     public static Retrofit getClient() {
         if (retrofit == null) {
-            synchronized (com.moshiur.simpleblogapp.retrofit.RetrofitApiClient.class) { //thread safe Singleton implementation
+            synchronized (com.moshiur.simpleblogapp.di.retrofit.retrofit.RetrofitApiClient.class) { //thread safe Singleton implementation
                 if (retrofit == null) {
                     retrofit = new Retrofit.Builder()
                             .baseUrl(BASE_URL)

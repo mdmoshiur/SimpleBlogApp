@@ -1,4 +1,4 @@
-package com.moshiur.simpleblogapp.retrofit;
+package com.moshiur.simpleblogapp.di.retrofit;
 
 
 import com.moshiur.simpleblogapp.models.ServerResponse;

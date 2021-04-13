@@ -14,7 +14,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.moshiur.simpleblogapp.models.Author;
 import com.moshiur.simpleblogapp.models.Blog;
 
-@Database(entities = {Blog.class}, version = 1)
+@Database(entities = {Blog.class}, version = 1, exportSchema = false)
 @TypeConverters(DataConverter.class)
 public abstract class BlogDatabase extends RoomDatabase {
 

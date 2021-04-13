@@ -1,7 +1,6 @@
 package com.moshiur.simpleblogapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingComponent;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,33 +14,41 @@ import android.view.View;
 import com.moshiur.simpleblogapp.R;
 import com.moshiur.simpleblogapp.adapters.BlogAdapter;
 import com.moshiur.simpleblogapp.databinding.ActivityMainBinding;
+import com.moshiur.simpleblogapp.di.scopes.MyApplication;
 import com.moshiur.simpleblogapp.models.Blog;
 import com.moshiur.simpleblogapp.models.ServerResponse;
-import com.moshiur.simpleblogapp.retrofit.ApiInterface;
-import com.moshiur.simpleblogapp.retrofit.RetrofitApiClient;
+import com.moshiur.simpleblogapp.di.retrofit.ApiInterface;
 import com.moshiur.simpleblogapp.viewmodels.BlogViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
+
 
     private ActivityMainBinding activityMainBinding;
 
     private BlogViewModel blogViewModel;
 
+    @Inject
+    Retrofit retrofit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        //setContentView(R.layout.activity_main);
+
+        //inject retrofit
+        ((MyApplication)getApplication()).getRetrofitComponent().inject(this);
 
         //set RecyclerView
-        // bind RecyclerView
         RecyclerView recyclerView = activityMainBinding.blogRecyclerview;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -71,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     //make a request for data
     private void makeNetworkCall(){
-        ApiInterface apiInterface = RetrofitApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         Call<ServerResponse> call = apiInterface.getBlogs();
 
