@@ -30,7 +30,11 @@ public class BlogViewModel extends AndroidViewModel {
         blogRepository.editBlogPost(blog);
     }
 
-    public LiveData<List<Blog>> getAllBlogs(){
+    public void deleteBlog(Blog blog) {
+        blogRepository.deleteBlogPost(blog);
+    }
+
+    public LiveData<List<Blog>> getAllBlogs() {
         return allBlogs;
     }
 }

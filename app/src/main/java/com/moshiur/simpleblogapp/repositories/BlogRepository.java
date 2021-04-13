@@ -22,12 +22,16 @@ public class BlogRepository {
         allBlogs = blogDao.getAllBLogs();
     }
 
-    public void createBlogPost(Blog blog){
+    public void createBlogPost(Blog blog) {
         new CreateBlogPostAsyncTask(blogDao).execute(blog);
     }
 
     public void editBlogPost(Blog blog) {
         new EditBlogPostAsyncTask(blogDao).execute(blog);
+    }
+
+    public void deleteBlogPost(Blog blog) {
+        new DeleteBlogPostAsyncTask(blogDao).execute(blog);
     }
 
     public LiveData<List<Blog>> getAllBlogs() {
@@ -37,6 +41,7 @@ public class BlogRepository {
 
     private static class CreateBlogPostAsyncTask extends AsyncTask<Blog, Void, Void> {
         private BlogDao blogDao;
+
         private CreateBlogPostAsyncTask(BlogDao blogDao) {
             this.blogDao = blogDao;
         }
@@ -48,12 +53,28 @@ public class BlogRepository {
     }
     private static class EditBlogPostAsyncTask extends AsyncTask<Blog, Void, Void> {
         private BlogDao blogDao;
+
         private EditBlogPostAsyncTask(BlogDao blogDao) {
             this.blogDao = blogDao;
         }
+
         @Override
         protected Void doInBackground(Blog... blogs) {
             blogDao.editBlog(blogs[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteBlogPostAsyncTask extends AsyncTask<Blog, Void, Void> {
+        private BlogDao blogDao;
+
+        private DeleteBlogPostAsyncTask(BlogDao blogDao) {
+            this.blogDao = blogDao;
+        }
+
+        @Override
+        protected Void doInBackground(Blog... blogs) {
+            blogDao.deleteBlog(blogs[0]);
             return null;
         }
     }

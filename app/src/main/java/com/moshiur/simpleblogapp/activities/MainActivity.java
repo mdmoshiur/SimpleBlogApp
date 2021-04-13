@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,21 +41,20 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     public Retrofit retrofit;
 
+    private RecyclerView recyclerView;
+    private BlogAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set activityMainBinging
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         //inject retrofit
-        ((MyApplication)getApplication()).getRetrofitComponent().inject(this);
+        ((MyApplication) getApplication()).getRetrofitComponent().inject(this);
 
         //set RecyclerView
-        RecyclerView recyclerView = activityMainBinding.blogRecyclerview;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        BlogAdapter adapter = new BlogAdapter(this);
-        recyclerView.setAdapter(adapter);
-
+        setRecyclerView();
 
         //create noteviewmodel
         blogViewModel = new ViewModelProvider(this).get(BlogViewModel.class);
@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 Toasty.info(MainActivity.this, "Clicked id : " + blog.getId(), Toasty.LENGTH_SHORT).show();
             }
         });
+
+        //set ItemTouchHelper
+        setItemTouchHelper();
 
     }
 
@@ -125,6 +128,30 @@ public class MainActivity extends AppCompatActivity {
                 Toasty.info(MainActivity.this, "Floating acction button is clicked", Toasty.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setItemTouchHelper() {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                blogViewModel.deleteBlog(adapter.getBlogAt(viewHolder.getAdapterPosition()));
+                Toasty.success(MainActivity.this, "Swiped Blog deleted", Toasty.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
+    }
+
+    private void setRecyclerView() {
+        recyclerView = activityMainBinding.blogRecyclerview;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        adapter = new BlogAdapter(this);
+        recyclerView.setAdapter(adapter);
     }
 
 }

@@ -21,6 +21,9 @@ public interface BlogDao {
     @Update
     void editBlog(Blog blog);
 
+    @Delete
+    void deleteBlog(Blog blog);
+
     @Query("SELECT * FROM BlogTable")
     LiveData<List<Blog>> getAllBLogs();
 }
