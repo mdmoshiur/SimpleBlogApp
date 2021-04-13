@@ -1,5 +1,9 @@
 package com.moshiur.simpleblogapp.activities;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -7,17 +11,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
 import com.moshiur.simpleblogapp.R;
 import com.moshiur.simpleblogapp.adapters.BlogAdapter;
 import com.moshiur.simpleblogapp.databinding.ActivityMainBinding;
+import com.moshiur.simpleblogapp.di.retrofit.ApiInterface;
 import com.moshiur.simpleblogapp.di.scopes.MyApplication;
 import com.moshiur.simpleblogapp.models.Blog;
 import com.moshiur.simpleblogapp.models.ServerResponse;
-import com.moshiur.simpleblogapp.di.retrofit.ApiInterface;
 import com.moshiur.simpleblogapp.viewmodels.BlogViewModel;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private BlogViewModel blogViewModel;
 
     @Inject
-    Retrofit retrofit;
+    public Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +67,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       makeNetworkCall();
+        makeNetworkCall();
 
-       //handle floating action button
+        //handle floating action button
         handleFloatingActionButton();
+
+        // set onItemClickListener
+        adapter.setOnItemClickListener(new BlogAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Blog blog) {
+                Toasty.info(MainActivity.this, "Clicked id : " + blog.getId(), Toasty.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

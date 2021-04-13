@@ -1,21 +1,20 @@
 package com.moshiur.simpleblogapp.models;
 
-import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
-import java.io.Serializable;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.moshiur.simpleblogapp.room.DataConverter;
 
-@Entity(tableName = "BlogTable")
-public class Blog implements Serializable
-{
+import java.io.Serializable;
+import java.util.List;
+
+import static com.moshiur.simpleblogapp.utils.Constants.TABLE_NAME;
+
+@Entity(tableName = TABLE_NAME)
+public class Blog implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")

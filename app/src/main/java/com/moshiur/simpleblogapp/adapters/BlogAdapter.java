@@ -2,8 +2,9 @@ package com.moshiur.simpleblogapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -15,6 +16,8 @@ import com.moshiur.simpleblogapp.BR;
 import com.moshiur.simpleblogapp.R;
 import com.moshiur.simpleblogapp.databinding.BlogItemBinding;
 import com.moshiur.simpleblogapp.models.Blog;
+
+import java.util.Objects;
 
 public class BlogAdapter extends ListAdapter<Blog, BlogAdapter.BlogHolder> {
 
@@ -33,9 +36,7 @@ public class BlogAdapter extends ListAdapter<Blog, BlogAdapter.BlogHolder> {
         }
         @Override
         public boolean areContentsTheSame(Blog oldItem, Blog newItem) {
-            return oldItem.getTitle().equals(newItem.getTitle()) &&
-                    oldItem.getDescription().equals(newItem.getDescription()) &&
-                    oldItem.getCoverPhoto().equals(newItem.getCoverPhoto());
+            return Objects.equals(oldItem, newItem);
         }
     };
 
@@ -50,6 +51,16 @@ public class BlogAdapter extends ListAdapter<Blog, BlogAdapter.BlogHolder> {
     public void onBindViewHolder(@NonNull BlogHolder holder, int position) {
         Blog currentBlog = getItem(position);
         holder.bind(currentBlog);
+
+        //added onItemClickListener to the cover image
+        holder.getBlogItemBindingImageView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(currentBlog);
+                }
+            }
+        });
     }
 
     public Blog getBlogAt(int position) {
@@ -70,21 +81,10 @@ public class BlogAdapter extends ListAdapter<Blog, BlogAdapter.BlogHolder> {
             //blogItemBinding.executePendingBindings();
         }
 
+        public ImageView getBlogItemBindingImageView() {
+            return blogItemBinding.coverPhoto;
+        }
 
-//            imageViewCoverPhoto = itemView.findViewById(R.id.cover_photo);
-//            textViewTitle = itemView.findViewById(R.id.title);
-//            textViewAuthor = itemView.findViewById(R.id.author);
-//            textViewCategory= itemView.findViewById(R.id.category);
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int position = getAdapterPosition();
-//                    if (listener != null && position != RecyclerView.NO_POSITION){
-//                        listener.onItemClick(getItem(position));
-//                    }
-//                }
-//            });
     }
 
     public interface OnItemClickListener {

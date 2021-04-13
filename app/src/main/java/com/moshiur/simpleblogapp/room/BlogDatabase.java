@@ -1,24 +1,19 @@
 package com.moshiur.simpleblogapp.room;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.moshiur.simpleblogapp.models.Author;
 import com.moshiur.simpleblogapp.models.Blog;
+
+import static com.moshiur.simpleblogapp.utils.Constants.DATABASE_NAME;
 
 @Database(entities = {Blog.class}, version = 1, exportSchema = false)
 @TypeConverters(DataConverter.class)
 public abstract class BlogDatabase extends RoomDatabase {
-
-    public static final String DATABASE_NAME = "BlogDatabase";
 
     private static BlogDatabase instance;
 
