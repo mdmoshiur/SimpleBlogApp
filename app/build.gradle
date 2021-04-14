@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     def room_version = "2.2.6"
     def retrofit_version = "2.9.0"
     def dagger_version = "2.34"
@@ -68,4 +69,7 @@ dependencies {
     // dagger dependencies
     implementation "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
+    // circle image dependency
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

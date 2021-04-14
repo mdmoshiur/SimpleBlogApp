@@ -1,5 +1,6 @@
 package com.moshiur.simpleblogapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -125,7 +126,9 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.info(MainActivity.this, "Floating acction button is clicked", Toasty.LENGTH_SHORT).show();
+//                Toasty.info(MainActivity.this, "Floating acction button is clicked",
+//                        Toasty.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, BlogDetailsActivity.class));
             }
         });
     }
@@ -141,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 blogViewModel.deleteBlog(adapter.getBlogAt(viewHolder.getAdapterPosition()));
-                Toasty.success(MainActivity.this, "Swiped Blog deleted", Toasty.LENGTH_SHORT).show();
+                Toasty.success(MainActivity.this, "Swiped Blog deleted",
+                        Toasty.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
     }
