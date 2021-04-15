@@ -20,4 +20,8 @@ public class BlogDetailsViewModel extends AndroidViewModel {
     public Blog getBlogAt(Integer id) {
         return blogRepository.getBlogPostAt(id);
     }
+
+    public void editBlogPost(Blog blog) {
+        blogRepository.editBlogPost(blog);
+    }
 }

@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     //make a request for data
     private void makeNetworkCall(){
+        //Toasty.info(MainActivity.this, "I am in", Toasty.LENGTH_SHORT).show();
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         Call<ServerResponse> call = apiInterface.getBlogs();
