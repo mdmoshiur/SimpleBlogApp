@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // moviesRecyclerViewAdapter.notifyDataSetChanged();
                     //Toasty.info(MainActivity.this, "I am in okk "+ blogs.size() , Toasty.LENGTH_SHORT).show();
-                    Log.d("on response", "onResponse: "+ blogs.size());
+                    //Log.d("on response", "onResponse: "+ blogs.size());
                 } else {
                     Log.d("on response", "onResponse: "+ "i am in else statement");
                 }

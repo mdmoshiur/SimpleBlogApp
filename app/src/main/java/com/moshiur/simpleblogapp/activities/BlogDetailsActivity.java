@@ -53,7 +53,7 @@ public class BlogDetailsActivity extends AppCompatActivity {
 
     private void editBlog() {
         //show toast
-        Toasty.info(this, "Now each field is editable", Toasty.LENGTH_SHORT).show();
+        Toasty.info(this, R.string.edit_notice, Toasty.LENGTH_SHORT).show();
 
         setEditView();
 

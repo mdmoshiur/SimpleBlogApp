@@ -6,6 +6,9 @@
     <string name="details_actionbar_text"></string>
     <string name="select_category_text">Select Categories</string>
     <string name="create_blog_actionbar_text">Create new post</string>
+    <string name="create_blog_post_button_text">Create Blog Post</string>
+    <string name="edit_notice">Now each field is editable</string>
+    <string name="type_here">type here</string>
 
 
 </resources>
