@@ -20,6 +20,7 @@ import com.moshiur.simpleblogapp.di.retrofit.ApiInterface;
 import com.moshiur.simpleblogapp.di.scopes.MyApplication;
 import com.moshiur.simpleblogapp.models.Blog;
 import com.moshiur.simpleblogapp.models.ServerResponse;
+import com.moshiur.simpleblogapp.utils.Constants;
 import com.moshiur.simpleblogapp.viewmodels.BlogViewModel;
 
 import java.util.List;
@@ -77,7 +78,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new BlogAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Blog blog) {
-                Toasty.info(MainActivity.this, "Clicked id : " + blog.getId(), Toasty.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, BlogDetailsActivity.class);
+                intent.putExtra(Constants.BLOG_ID, blog.getId());
+                startActivity(intent);
+                //finish();
+                //Toasty.info(MainActivity.this, "Clicked id : " + blog.getId(), Toasty.LENGTH_SHORT).show();
             }
         });
 
@@ -126,9 +131,8 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toasty.info(MainActivity.this, "Floating acction button is clicked",
-//                        Toasty.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, BlogDetailsActivity.class));
+                //Toasty.info(MainActivity.this, "Floating acction button is clicked", Toasty.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, CreateBlogPostActivity.class));
             }
         });
     }

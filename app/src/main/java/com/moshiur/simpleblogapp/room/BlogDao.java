@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface BlogDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void createBlog(Blog blog);
 
     @Update
@@ -26,4 +26,8 @@ public interface BlogDao {
 
     @Query("SELECT * FROM BlogTable")
     LiveData<List<Blog>> getAllBLogs();
+
+    @Query("SELECT * FROM BlogTable WHERE id= :id")
+    Blog getBlogFromBlogID(int id);
+
 }

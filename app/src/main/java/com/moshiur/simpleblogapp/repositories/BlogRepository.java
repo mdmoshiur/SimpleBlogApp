@@ -10,6 +10,7 @@ import com.moshiur.simpleblogapp.room.BlogDao;
 import com.moshiur.simpleblogapp.room.BlogDatabase;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class BlogRepository {
 
@@ -32,6 +33,18 @@ public class BlogRepository {
 
     public void deleteBlogPost(Blog blog) {
         new DeleteBlogPostAsyncTask(blogDao).execute(blog);
+    }
+
+    public Blog getBlogPostAt(int id) {
+        Blog blog = null;
+        try {
+            blog = new GetBlogPostAtAsyncTask(blogDao).execute(id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return blog;
     }
 
     public LiveData<List<Blog>> getAllBlogs() {
@@ -77,5 +90,19 @@ public class BlogRepository {
             blogDao.deleteBlog(blogs[0]);
             return null;
         }
+    }
+
+    private class GetBlogPostAtAsyncTask extends AsyncTask<Integer, Void, Blog> {
+        private BlogDao blogDao;
+
+        private GetBlogPostAtAsyncTask(BlogDao blogDao) {
+            this.blogDao = blogDao;
+        }
+
+        @Override
+        protected Blog doInBackground(Integer... integers) {
+            return blogDao.getBlogFromBlogID(integers[0]);
+        }
+
     }
 }
